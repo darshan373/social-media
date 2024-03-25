@@ -1,0 +1,10 @@
+.sidebarcontainer{
+   min-height: 621px;
+}
+.app-container{
+    display: flex;
+
+}
+.content{
+  width:100%;
+}
