@@ -21,3 +21,8 @@ min-width: 400px;
 .reactions-post{
     margin: 10px 10px;padding: 2px;
 }
+.createpost{
+    width: 60%;
+    margin-left: 10%;
+    margin-top: 50px;
+}

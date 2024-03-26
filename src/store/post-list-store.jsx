@@ -12,6 +12,7 @@ export const Postlistapi=createContext({
 const postlistReducer=(currpostlist,action)=>{
     let newpostlist=currpostlist;
     if (action.type === "ADD") {
+        newpostlist=[...currpostlist,{Id:action.payload.Id,title:action.payload.title,body:action.payload.body,reactions:action.payload.reactions,userid:action.payload.userid,tags:action.payload.tagarray}]
      
     } else if (action.type === "DELETE") {
         newpostlist=currpostlist.filter((item) => item.Id!==action.payload.postid)
@@ -23,11 +24,13 @@ const postlistReducer=(currpostlist,action)=>{
 
 const PostlistProvider=({children})=>{
     const [postlist,dispatchpostlist]=useReducer(postlistReducer,DEFAULT_POSTLIST);
-    const addPost=()=>{
+    const addPost=(Id,title,body,reactions,userid,tags)=>{
+        const tagarray=tags.split(" ");
+        
         const Itemaction={
             type: "ADD",
             payload:{
-
+Id,title,body,reactions,userid,tagarray
             }
         }
         dispatchpostlist(Itemaction)
