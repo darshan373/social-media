@@ -1,11 +1,25 @@
-const Post=() => {
-    return (<div className="card" style={{width: "18rem"}}>
-    <img src="..." className="card-img-top" alt="..."/>
-    <div className="card-body">
-      <h5 className="card-title">Card title</h5>
-      <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-      <a href="#" className="btn btn-primary">Go somewhere</a>
+import { useContext } from "react";
+import { MdDelete } from "react-icons/md";
+import { Postlistapi } from "../store/post-list-store";
+
+const Post=({postlist}) => {
+    const {deletePost}=useContext(Postlistapi)
+    return (<div key={postlist.Id} className="card post-card" style={{width: "18rem"}}>
+  
+    <div className="card-body"> <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+    <MdDelete onClick={() => {deletePost(postlist.Id);}}/>
+    
+  </span>
+      <h5 className="card-title">{postlist.title}  
+  </h5>
+      <p className="card-text">{postlist.body}</p>
+     {postlist.tags.map((item)=> <span key={item}className="badge text-bg-primary tags-post">{item}</span>)}
     </div>
+    <div className="alert alert-success reactions-post" role="alert">
+  This post is liked by {postlist.reactions} people
+</div>
   </div>);
 }
 export default Post;
+/* <a href="#" className="btn btn-primary">Go somewhere</a>
+<img src="..." className="card-img-top" alt="..."/>*/
