@@ -41,3 +41,7 @@ min-width: 400px;
     margin: auto;
     margin-top: 80px;
 }
+.grid{
+    display: grid;
+   grid-template-columns: repeat(2,1fr);
+}

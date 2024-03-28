@@ -5,7 +5,8 @@ const Postlist=() =>{
     const { postlist}=useContext( Postlistapi);
 
 return <>
-{ postlist.map((item) => <Post key={item.Id} postlist={item}></Post>)}
+<div className="grid">{ postlist.map((item) => <Post key={item.Id} postlist={item}></Post>)}</div>
+
 
 </>
 }
