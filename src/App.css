@@ -1,5 +1,8 @@
 .sidebarcontainer{
-   min-height: 621px;
+  /* min-height: 621px;*/
+  height: 100vh;
+  position: sticky;
+  top: 0px;
 }
 .app-container{
     display: flex;
@@ -19,10 +22,22 @@ min-width: 400px;
     margin:4px 4px 0px 4px;
 }
 .reactions-post{
-    margin: 10px 10px;padding: 2px;
+    margin: 10px 10px;padding: 5px;
 }
 .createpost{
     width: 60%;
     margin-left: 10%;
     margin-top: 50px;
+   
+    
+}
+.footer-container{
+    
+    
+    
+}
+.logincontainer{
+    width: 50%;
+    margin: auto;
+    margin-top: 80px;
 }

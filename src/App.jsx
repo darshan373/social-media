@@ -3,8 +3,9 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Sidebar from "./components/Sidebar";
 import CreatePost from "./components/CreatePost";
-
+import Login from "./components/Login";
 import Postlist from "./components/Postlist";
+import Signup from "./components/Signup";
 import "./App.css";
 import { useState } from "react";
 import PostlistProvider from "./store/post-list-store";
@@ -19,12 +20,15 @@ function App() {
           setselectedtab={setselectedtab}
         ></Sidebar>
         <div className="content">
-          <Header></Header>
-          {selectedtab === "Home" ? (
-            <Postlist></Postlist>
-          ) : (
-            <CreatePost></CreatePost>
-          )}
+          <Header selectedtab={selectedtab}
+          setselectedtab={setselectedtab}></Header>
+         
+          {selectedtab === "Create Post" &&  <CreatePost></CreatePost>}
+          {selectedtab === "Home" && <Postlist></Postlist>}
+          {selectedtab === "Login" && <Login selectedtab={selectedtab}
+          setselectedtab={setselectedtab}></Login>}
+          {selectedtab === "Signup" && <Signup selectedtab={selectedtab}
+          setselectedtab={setselectedtab}></Signup>}
 
           <Footer></Footer>
         </div>
