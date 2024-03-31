@@ -1,4 +1,4 @@
-import { useCallback, useReducer } from "react";
+import { useCallback, useReducer ,useEffect} from "react";
 import { createContext } from "react";
 import { useState } from "react";
 
@@ -7,7 +7,8 @@ export const Postlistapi=createContext({
     postlist:[],
     addPost:() => {},
     deletePost:() => {},
-    addinitialPost:() => {}
+   
+    fetching: false
 });
 
 const postlistReducer=(currpostlist,action)=>{
@@ -28,6 +29,7 @@ newpostlist=[...newpost];
 }
 
 const PostlistProvider=({children})=>{
+    const [fetching,setfetching]=useState(false);
     const [postlist,dispatchpostlist]=useReducer(postlistReducer,[]);
     const addPost=(id,title,body,reactions,userid,tags)=>{
         const tagarray=tags.split(" ");
@@ -68,7 +70,18 @@ posts
             }
         })
     },[dispatchpostlist])
-    return <Postlistapi.Provider value={{postlist,addPost,deletePost,addinitialPost}}>
+    useEffect(()=>{
+        setfetching(true);
+        fetch("https://dummyjson.com/posts")
+        .then(res => res.json())
+        .then((data) => {addinitialPost(data.posts);
+        setfetching(false);});
+    
+        return ()=>{
+           
+        };
+      },[]);
+    return <Postlistapi.Provider value={{postlist,addPost,deletePost,fetching}}>
         {children}
     </Postlistapi.Provider>
 }

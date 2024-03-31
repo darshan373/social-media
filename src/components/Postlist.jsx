@@ -5,22 +5,8 @@ import Welcome from "./Welcome";
 import { useEffect } from "react";
 import Loader from "./Loader";
 const Postlist=() =>{
-    const { postlist,addinitialPost}=useContext( Postlistapi);
-    const [fetching,setfetching]=useState(false);
-  
-
-  
-  useEffect(()=>{
-    setfetching(true);
-    fetch("https://dummyjson.com/posts")
-    .then(res => res.json())
-    .then((data) => {addinitialPost(data.posts);
-    setfetching(false);});
-
-    return ()=>{
-       
-    };
-  },[]);
+    const { postlist,fetching}=useContext( Postlistapi);
+   
 return <>
 {fetching && <Loader/>}
 {!fetching && postlist.length === 0 && <Welcome></Welcome>}
