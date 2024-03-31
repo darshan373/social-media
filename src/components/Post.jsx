@@ -7,7 +7,7 @@ const Post=({postlist}) => {
     return (<div key={postlist.Id} className="card post-card" style={{width: "18rem"}}>
   
     <div className="card-body"> <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-    <MdDelete onClick={() => {deletePost(postlist.Id);}}/>
+    <MdDelete onClick={() => {deletePost(postlist.id);}}/>
     
   </span>
       <h5 className="card-title">{postlist.title}  

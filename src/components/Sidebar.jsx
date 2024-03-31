@@ -23,14 +23,14 @@ const Sidebar=({selectedtab,setselectedtab}) => {
     </ul>
     <hr/>
     <div className="dropdown">
-    <div class="btn-group">
-  <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <div className="btn-group">
+  <button className="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     More
   </button>
-  <div class="dropdown-menu">
-  <a class="dropdown-item" href="#">Query</a>
-    <a class="dropdown-item" href="#">Support</a>
-    <a class="dropdown-item" href="#">FAQ's</a>
+  <div className="dropdown-menu">
+  <a className="dropdown-item" href="#">Query</a>
+    <a className="dropdown-item" href="#">Support</a>
+    <a className="dropdown-item" href="#">FAQ's</a>
   </div>
 </div>
       

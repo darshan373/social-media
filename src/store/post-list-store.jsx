@@ -1,4 +1,4 @@
-import { useReducer } from "react";
+import { useCallback, useReducer } from "react";
 import { createContext } from "react";
 import { useState } from "react";
 
@@ -6,7 +6,8 @@ import { useState } from "react";
 export const Postlistapi=createContext({
     postlist:[],
     addPost:() => {},
-    deletePost:() => {}
+    deletePost:() => {},
+    addinitialPost:() => {}
 });
 
 const postlistReducer=(currpostlist,action)=>{
@@ -15,26 +16,41 @@ const postlistReducer=(currpostlist,action)=>{
         newpostlist=[{Id:action.payload.Id,title:action.payload.title,body:action.payload.body,reactions:action.payload.reactions,userid:action.payload.userid,tags:action.payload.tagarray},...currpostlist]
      
     } else if (action.type === "DELETE") {
-        newpostlist=currpostlist.filter((item) => item.Id!==action.payload.postid)
+        newpostlist=currpostlist.filter((item) => item.id!==action.payload.postid)
         
+    }else if (action.type === "ADD-INITIAL"){
+        const newpost=action.payload.posts;
+newpostlist=[...newpost];
+
     }
     return newpostlist;
 
 }
 
 const PostlistProvider=({children})=>{
-    const [postlist,dispatchpostlist]=useReducer(postlistReducer,DEFAULT_POSTLIST);
-    const addPost=(Id,title,body,reactions,userid,tags)=>{
+    const [postlist,dispatchpostlist]=useReducer(postlistReducer,[]);
+    const addPost=(id,title,body,reactions,userid,tags)=>{
         const tagarray=tags.split(" ");
         
         const Itemaction={
             type: "ADD",
             payload:{
-Id,title,body,reactions,userid,tagarray
+id,title,body,reactions,userid,tagarray
             }
         }
         dispatchpostlist(Itemaction)
     }
+    const addinitialPost=(posts)=>{
+        
+        
+        const Itemaction={
+            type: "ADD-INITIAL",
+            payload:{
+posts
+            }
+        }
+        dispatchpostlist(Itemaction)
+    }/*
     const deletePost=(postid)=>{
         const Itemaction={
             type: "DELETE",
@@ -43,8 +59,16 @@ Id,title,body,reactions,userid,tagarray
             }
         }
         dispatchpostlist(Itemaction);
-        }
-    return <Postlistapi.Provider value={{postlist,addPost,deletePost}}>
+        }*/
+    const deletePost=useCallback((postid)=>{
+        dispatchpostlist({
+            type: "DELETE",
+            payload:{
+                postid
+            }
+        })
+    },[dispatchpostlist])
+    return <Postlistapi.Provider value={{postlist,addPost,deletePost,addinitialPost}}>
         {children}
     </Postlistapi.Provider>
 }
@@ -95,5 +119,20 @@ const DEFAULT_POSTLIST=[{
     reactions: 12,
     userid: "user-volunteer",
     tags:['volunteering','community','rewarding']
+},  {
+    Id: '9',
+    title : "graduation day",
+    body: 'finally graduated, a new chapter begins',
+    reactions: 25,
+    userid: "user-graduate",
+    tags:['graduation','newbeginning']
+},
+{
+    Id: '10',
+    title : "travel adventure",
+    body: 'embarking on a travel adventure, exploring new places',
+    reactions: 18,
+    userid: "user-travel",
+    tags:['travel','adventure','exploring']
 }]
 export default PostlistProvider;
