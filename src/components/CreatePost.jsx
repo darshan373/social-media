@@ -17,13 +17,29 @@ const CreatePost = () => {
         const caption1=caption.current.value;
         const reactions1=reactions.current.value;
         const tags1=tags.current.value;
-        const id=Math.floor(Math.random()*100);
-        addPost(id,title1,caption1,reactions1,userid1,tags1);
-        userid.current.value="";
+        
+        
+       /* userid.current.value="";
         title.current.value="";
         caption.current.value="";
         reactions.current.value="";
-        tags.current.value="";
+        tags.current.value="";*/
+        fetch('https://dummyjson.com/posts/add', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    title:title1,
+    body:caption1,
+    userId:userid1,
+    reactions:reactions1,
+    tags:tags1.split(" ")
+     
+  }),
+})
+.then(res => res.json())
+.then((post)=> {
+addPost(post);
+});
 
         
     }

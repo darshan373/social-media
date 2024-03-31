@@ -14,10 +14,11 @@ export const Postlistapi=createContext({
 const postlistReducer=(currpostlist,action)=>{
     let newpostlist=currpostlist;
     if (action.type === "ADD") {
-        newpostlist=[{Id:action.payload.Id,title:action.payload.title,body:action.payload.body,reactions:action.payload.reactions,userid:action.payload.userid,tags:action.payload.tagarray},...currpostlist]
+       
+        newpostlist=[action.payload.post,...currpostlist]
      
     } else if (action.type === "DELETE") {
-        newpostlist=currpostlist.filter((item) => item.id!==action.payload.postid)
+        newpostlist=currpostlist.filter((item) => item.id!=action.payload.postid)
         
     }else if (action.type === "ADD-INITIAL"){
         const newpost=action.payload.posts;
@@ -31,13 +32,13 @@ newpostlist=[...newpost];
 const PostlistProvider=({children})=>{
     const [fetching,setfetching]=useState(false);
     const [postlist,dispatchpostlist]=useReducer(postlistReducer,[]);
-    const addPost=(id,title,body,reactions,userid,tags)=>{
-        const tagarray=tags.split(" ");
-        
+    const addPost=(post)=>{
+       /* const tagarray=tags.split(" ");*/
+     /*   console.log(post)*/
         const Itemaction={
             type: "ADD",
             payload:{
-id,title,body,reactions,userid,tagarray
+post
             }
         }
         dispatchpostlist(Itemaction)
